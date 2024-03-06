@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+// Definición de la estructura de la pila
+struct Stack {
+    int items[MAX_SIZE];
+    int top;
+};
+
+// Función para inicializar la pila
+void initialize(struct Stack *stack) {
+    stack->top = -1;
+}
+
+// Función para comprobar si la pila está vacía
+int isEmpty(struct Stack *stack) {
+    return stack->top == -1;
+}
+
+// Función para comprobar si la pila está llena
+int isFull(struct Stack *stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+// Función para añadir un elemento a la pila (push)
+void push(struct Stack *stack, int value) {
+    if (isFull(stack)) {
+        printf("Error: la pila está llena, no se puede realizar push.\n");
+    } else {
+        stack->items[++stack->top] = value;
+        printf("Elemento %d añadido a la pila.\n", value);
+    }
+}
+
+// Función para eliminar un elemento de la pila (pop)
+int pop(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("Error: la pila está vacía, no se puede realizar pop.\n");
+        return -1; // Valor indicando error
+    } else {
+        return stack->items[stack->top--];
+    }
+}
+
+// Función para mostrar la pila
+void display(struct Stack *stack) {
+    if (isEmpty(stack)) {
+        printf("La pila está vacía.\n");
+    } else {
+        printf("Contenido de la pila:\n");
+        for (int i = 0; i <= stack->top; i++) {
+            printf("%d ", stack->items[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    struct Stack stack;
+    initialize(&stack);
+
+    push(&stack, 10);
+    push(&stack, 20);
+    push(&stack, 30);
+
+    display(&stack);
+
+    printf("Elemento eliminado: %d\n", pop(&stack));
+
+    display(&stack);
+
+    return 0;
+}
